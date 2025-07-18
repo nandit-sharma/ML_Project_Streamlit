@@ -8,7 +8,7 @@ st.markdown("<p style='text-align: center; color: #555; font-size: 1.2rem;'>Expl
 
 with st.sidebar:
     st.image("https://img.icons8.com/color/96/diabetes.png", width=80)
-    st.markdown("<h2 style='color: #d7263d;'>DIA</h2>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #4fc3f7;'>D I A - Where data meets diagnosis.</h3>", unsafe_allow_html=True)
     st.markdown("<hr style='border: 1px solid #d7263d;'>", unsafe_allow_html=True)
     st.header("Filter Data")
 
