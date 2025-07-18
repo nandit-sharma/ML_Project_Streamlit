@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 st.set_page_config(page_title="🩸 DIA", layout="wide")
 
@@ -8,7 +10,7 @@ st.markdown("<p style='text-align: center; color: #555; font-size: 1.2rem;'>Expl
 
 with st.sidebar:
     st.image("https://img.icons8.com/color/96/diabetes.png", width=80)
-    st.markdown("<h3 style='color: #4fc3f7;'>D I A - Where data meets diagnosis.</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #4fc3f7;'>D I A -  Where data meets diagnosis.</h3>", unsafe_allow_html=True)
     st.markdown("<hr style='border: 1px solid #d7263d;'>", unsafe_allow_html=True)
     st.header("Filter Data")
 
@@ -38,15 +40,14 @@ with tabs[2]:
     graph_types = ["Scatter", "Line", "Bar", "Box"]
     c1, c2, c3 = st.columns([2,2,2])
     with c1:
-        graph_type = st.selectbox("Graph Type", graph_types)
+        graph_type = st.selectbox("Graph Type", graph_types, index=2)
     with c2:
-        x_axis = st.selectbox("X-axis", num_cols + cat_cols)
+        x_axis = st.selectbox("X-axis", num_cols + cat_cols, index=(num_cols + cat_cols).index("age") if "age" in (num_cols + cat_cols) else 0)
     with c3:
-        y_axis = st.selectbox("Y-axis", num_cols, index=1 if len(num_cols) > 1 else 0)
+        y_axis = st.selectbox("Y-axis", num_cols, index=num_cols.index("diabetes") if "diabetes" in num_cols else 0)
     plot_btn = st.button("Plot Graph", use_container_width=True)
     if plot_btn:
-        import matplotlib.pyplot as plt
-        import seaborn as sns
+        
         fig, ax = plt.subplots(figsize=(8, 5))
         if graph_type == "Scatter":
             sns.scatterplot(data=filtered_df, x=x_axis, y=y_axis, ax=ax)
@@ -77,7 +78,7 @@ with tabs[4]:
     import numpy as np
     c1, c2 = st.columns(2)
     with c1:
-        target_col = st.selectbox("Select Target Column", filtered_df.columns)
+        target_col = st.selectbox("Select Target Column", filtered_df.columns, index=list(filtered_df.columns).index("diabetes") if "diabetes" in filtered_df.columns else 0)
     with c2:
         feature_cols = st.multiselect("Select Feature Columns", [col for col in filtered_df.columns if col != target_col], default=[col for col in filtered_df.columns if col != target_col])
     c3, c4 = st.columns([2,2])
