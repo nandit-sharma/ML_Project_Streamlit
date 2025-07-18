@@ -7,6 +7,7 @@ def load_data():
     return pd.read_csv("diabetes.csv")
 df = load_data()
 
+
 st.set_page_config(page_title="🩸 DIA", layout="wide")
 
 st.title("💊 Diabetes Insight App")
@@ -37,6 +38,16 @@ section_map = {
     "⬇️ Download Data": "Download Data"
 }
 section = section_map[section]
+
+st.set_page_config(page_title="🧠 DIA", layout="wide")
+
+st.title("🧠 Diabetes Insight App")
+st.write("Explore and analyze the diabetes dataset interactively.")
+
+# Sidebar for navigation and filters
+st.sidebar.header("Navigation")
+section = st.sidebar.radio("Go to:", ["Dataset Preview", "Summary Stats", "Visualizations", "Correlation", "ML Models", "Download Data"])
+
 
 # Sidebar filters
 st.sidebar.header("Filter Data")
